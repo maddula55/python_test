@@ -1,3 +1,6 @@
 print "hello world"
 print "document changes"
 
+
+for i in range(10):
+    print i
