@@ -18,14 +18,18 @@ for j in crypto_map:
         if "pfs group2" in p.text:
             print j.text
 print '''
-crypto map entries with AES protection
+crypto map entries without AES protection
 '''
 
 for j in crypto_map:
     for p in j.children:
         if "transform-set" in p.text:
-            if "AES-SHA" in p.text:
-                print j.text
-                print p.text
+            if "AES-SHA" not in p.text:
+                r = p.text.split()
+                for q in r:
+                    if "transform-set" == q:
+                        print "%s : encrption is %s" %(j.text, r[r.index(q)+1])
+
+                
 
 
