@@ -1,0 +1,250 @@
+interface loopback 1
+ ip ospf area 1
+ ip ospf passive
+ ip address 10.118.0.1/32
+interface ethernet 1/1
+ load-interval 30
+interface ethernet 1/2
+ enable
+ load-interval 30
+interface ethernet 1/3
+ enable
+ load-interval 30
+interface ethernet 1/4
+ enable
+ load-interval 30
+interface ethernet 1/5
+ port-name IDS1.ACC4-S5P1
+ enable
+ load-interval 30
+interface ethernet 1/6
+ load-interval 30                                                 
+interface ethernet 1/7
+ port-name LB1-DEV.ACC4
+ enable
+ load-interval 30
+interface ethernet 1/8
+ enable
+ load-interval 30
+interface ethernet 2/1
+ enable
+ load-interval 30
+ mon ethernet 1/5 input
+interface ethernet 2/5
+ port-name R1-FO.ACC4:BAR1.ASH3 XE-2/2/0
+ enable
+ load-interval 30
+ mon ethernet 1/5 input
+interface ethernet 2/6
+ load-interval 30                                                 
+interface ethernet 2/7
+ port-name LB1-DEV.ACC4
+ enable
+ load-interval 30
+interface ethernet 3/1
+ enable
+ mon ethernet 1/5 input
+interface ethernet 3/5
+ load-interval 30
+interface ethernet 3/6
+ port-name R1-FO.ACC4:BAR2.ASH3 XE-2/2/0
+ enable
+ load-interval 30
+ mon ethernet 1/5 input
+interface ethernet 4/1
+ port-name ToR-F3.ACC4=>0/0
+ enable
+interface ethernet 4/6
+ port-name MGT-SNIFFER1.ACC4
+ enable
+ load-interval 30
+interface ethernet 4/7
+ load-interval 30
+interface ethernet 7/1
+ port-name FW1.ACC4=>E4
+ enable
+ load-interval 30
+ mon ethernet 1/5 input
+interface ethernet 7/2
+ port-name TAP1.ACC4
+ enable
+ load-interval 30
+interface ethernet 7/3
+ port-name GNS1.ACC4
+ enable
+ load-interval 30                                                 
+ mon ethernet 4/6 both
+interface ethernet 7/4
+ port-name GNS1.ACC4-MGT
+ enable
+ load-interval 30
+interface ethernet 7/5
+ load-interval 30
+interface ethernet 7/6
+ port-name FW1.ACC4=>E5
+ enable
+ load-interval 30
+interface ethernet 7/7
+ load-interval 30
+interface ethernet 7/8
+ port-name LB1-FO.ACC4-MGMT
+ load-interval 30
+interface ethernet 7/9
+ port-name INT-vpn.symnds.com
+ enable
+ load-interval 30
+interface ethernet 7/10
+ port-name EXT-vpn.symnds.com
+ enable
+ load-interval 30
+ mon ethernet 1/5 input
+interface ethernet 7/11
+ port-name GNS1.ACC4=>E3
+ enable
+ load-interval 30
+interface ethernet 7/12
+ load-interval 30
+interface ethernet 7/13
+ port-name VPN1.ACC4
+ enable
+ load-interval 30
+interface ethernet 7/14
+ load-interval 30
+interface ethernet 7/15
+ load-interval 30
+interface ethernet 7/16
+ load-interval 30
+interface ethernet 7/17
+ load-interval 30
+interface ethernet 7/18
+ port-name OLD-FW
+ enable
+ load-interval 30
+interface ethernet 7/19
+ enable
+ load-interval 30
+interface ethernet 7/20
+ port-name LB1-DEV.ACC4                                           
+ enable
+ load-interval 30
+interface ethernet 8/1
+ port-name MGT-SMTP1.ACC4
+ enable
+ load-interval 30
+interface ethernet 8/2
+ port-name LB1-FO.ACC4
+ enable
+interface ve 3
+ ip address 63.245.207.161/31
+ ip access-group 100 in 
+ ip mtu 9000
+interface ve 4
+ ip address 63.245.207.163/31
+ ip access-group 100 in 
+ ip mtu 9000
+interface ve 5                                                    
+ ip address 100.67.0.97/31
+ ip mtu 9000
+interface ve 6
+ ip address 100.67.0.99/31
+ ip mtu 9000
+interface ve 7
+ ip address 100.67.0.121/31
+ ip mtu 9000
+interface ve 8
+ ip address 100.67.0.123/31
+ ip mtu 9000
+interface ve 10
+ ip ospf area 1
+ ip address 63.245.196.253/30
+interface ve 21
+ ip ospf area 0
+ ip address 63.245.196.249/30
+interface ve 41
+ ip ospf area 1
+ ip address 63.245.196.129/30
+interface ve 47
+ ip ospf area 1
+ ip address 63.245.196.153/30
+interface ve 50
+ ip ospf area 1
+ ip ospf passive
+ ip address 63.245.196.3/25
+ ip vrrp-extended vrid 50
+  backup priority 104
+  ip-address 63.245.196.1
+  track-port ethernet 1/1
+  activate
+ ip vrrp-extended vrid 51
+  backup
+  ip-address 63.245.196.2
+  track-port ethernet 1/1
+  activate
+interface ve 90
+ ip ospf area 1
+ ip ospf passive
+ ip address 10.118.11.3/24
+ ip vrrp-extended vrid 90
+  backup priority 104
+  ip-address 10.118.11.1
+  track-port ethernet 1/1
+  activate
+ ip vrrp-extended vrid 91
+  backup
+  ip-address 10.118.11.2
+  track-port ethernet 1/1
+  activate
+interface ve 100
+ port-name VL100 - NON ROUTED
+interface ve 300
+ ip ospf area 1
+ ip ospf passive
+ ip address 10.118.176.3/22
+ ip helper-address 10.117.20.21                                   
+ ip vrrp-extended vrid 30
+  backup priority 104
+  ip-address 10.118.176.1
+  track-port ethernet 1/1
+  activate
+ ip vrrp-extended vrid 31
+  backup
+  ip-address 10.118.176.2
+  track-port ethernet 1/1
+  activate
+interface ve 520
+ ip ospf area 1
+ ip ospf passive
+ ip address 10.118.140.3/22
+ ip vrrp-extended vrid 52
+  backup priority 104
+  ip-address 10.118.140.1
+  track-port ethernet 1/1
+  activate
+ ip vrrp-extended vrid 53
+  backup
+  ip-address 10.118.140.2                                         
+  track-port ethernet 1/1
+  activate
+interface ve 750
+ port-name VPN1.ACC4=>NON ROUTED
+interface ve 900
+ ip ospf area 1
+ ip ospf passive
+ ip address 10.118.10.3/24
+ ip vrrp-extended vrid 90
+  backup priority 104
+  ip-address 10.118.10.1
+  track-port ethernet 1/1
+  activate
+ ip vrrp-extended vrid 91
+  backup
+  ip-address 10.118.10.2
+  track-port ethernet 1/1
+  activate
+interface ve 1001
+ port-name 10.117.2.0/30-R1-BO.ACC4                               
+ ip ospf area 1
+ ip address 10.117.2.2/30
+interface ve 1004
+ port-name 10.117.2.12/30-R2-BO.ACC4
+ ip address 10.117.2.14/30

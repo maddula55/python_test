@@ -1,0 +1,21 @@
+interface ethernet 1/5  connected network element is: IDS1.ACC4-S5P1
+interface ethernet 1/7  connected network element is: LB1-DEV.ACC4
+interface ethernet 2/5  connected network element is: R1-FO.ACC4:BAR1.ASH3 XE-2/2/0
+interface ethernet 2/7  connected network element is: LB1-DEV.ACC4
+interface ethernet 3/6  connected network element is: R1-FO.ACC4:BAR2.ASH3 XE-2/2/0
+interface ethernet 4/1  connected network element is: ToR-F3.ACC4=>0/0
+interface ethernet 4/6  connected network element is: MGT-SNIFFER1.ACC4
+interface ethernet 7/1  connected network element is: FW1.ACC4=>E4
+interface ethernet 7/2  connected network element is: TAP1.ACC4
+interface ethernet 7/3  connected network element is: GNS1.ACC4
+interface ethernet 7/4  connected network element is: GNS1.ACC4-MGT
+interface ethernet 7/6  connected network element is: FW1.ACC4=>E5
+interface ethernet 7/8  connected network element is: LB1-FO.ACC4-MGMT
+interface ethernet 7/9  connected network element is: INT-vpn.symnds.com
+interface ethernet 7/10  connected network element is: EXT-vpn.symnds.com
+interface ethernet 7/11  connected network element is: GNS1.ACC4=>E3
+interface ethernet 7/13  connected network element is: VPN1.ACC4
+interface ethernet 7/18  connected network element is: OLD-FW
+interface ethernet 7/20  connected network element is: LB1-DEV.ACC4                                           
+interface ethernet 8/1  connected network element is: MGT-SMTP1.ACC4
+interface ethernet 8/2  connected network element is: LB1-FO.ACC4
