@@ -1,0 +1,591 @@
+slb virtual-server mirror.symnds.net 10.117.6.21
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 80  http
+      source-nat pool SNAT-POOL-1
+      service-group mirror.symnds.net
+slb virtual-server puppet.symnds.net 10.117.6.22
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 8140  tcp
+      service-group puppet.symnds.net_8140
+   port 8443  ssl-proxy
+      service-group puppet.symnds.net_8443
+      template client-ssl puppet.symnds.net
+slb virtual-server ns.symnds.net 10.117.6.23
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 53  dns-udp
+      access-list 10 source-nat-pool SNAT-POOL-1 
+      service-group ns.symnds.net_udp
+   port 53  dns-tcp
+      service-group ns.symnds.net_tcp
+   port 123  udp
+      service-group ntp.symnds.net
+slb virtual-server proxy.symnds.net 10.117.6.24
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 8080  http
+      service-group proxy.symnds.net
+slb virtual-server smtp.symnds.net 10.117.6.25
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 25  tcp
+      name _10.117.6.25_SMTP_25
+      source-nat pool SNAT-POOL-1
+      service-group smtp.symnds.net_25
+   port 587  tcp
+      name _10.117.6.25_TCP_587
+      source-nat pool SNAT-POOL-1
+      service-group smtp.symnds.net_587
+slb virtual-server ad.symnds.net 10.117.6.26
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 389  tcp
+      source-nat pool SNAT-POOL-1
+      service-group ad.symnds.net_389
+   port 636  tcp
+      source-nat pool SNAT-POOL-1
+      service-group ad.symnds.net_636
+slb virtual-server syslog.acc4.symnds.net 10.117.6.27
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 514  udp
+      service-group syslog.acc4.symnds.net
+slb virtual-server zone-cbs.symnds.net-1 10.117.6.79
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 80  http
+      source-nat pool SNAT-POOL-1
+      service-group zone-couchbase.symnds.net
+      template persist source-ip source-ip-persistence-15m
+slb virtual-server p2v.symnds.net 10.117.6.29
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 80  http
+      source-nat pool SNAT-POOL-1
+      service-group p2v.symnds.net
+      template persist source-ip source-ip-persistence-15m
+      aflex https-redirect
+   port 443  https
+      source-nat pool SNAT-POOL-1
+      service-group p2v.symnds.net
+      template http xff-header
+      template client-ssl symnds.net
+      template persist source-ip source-ip-persistence-60m
+slb virtual-server wsvc2.symnds.net-1 10.117.6.53
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 80  http
+      source-nat pool SNAT-POOL-1
+      service-group wsvc2.symnds.net
+      template http xff-header
+slb virtual-server wsvc2.symnds.net-2 10.117.6.54
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 2
+   port 80  http
+      source-nat pool SNAT-POOL-2
+      service-group wsvc2.symnds.net
+      template http xff-header
+slb virtual-server pele.symnds.net-1 10.117.6.61
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 8080  http
+      source-nat pool SNAT-POOL-1
+      service-group pele.symnds.net
+slb virtual-server pele.symnds.net-2 10.117.6.62
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 2
+   port 8080  http
+      source-nat pool SNAT-POOL-2
+      service-group pele.symnds.net
+slb virtual-server slor.symnds.net-1 10.117.6.63
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 80  http
+      source-nat pool SNAT-POOL-1
+      service-group slor.symnds.net
+      template persist source-ip source-ip-persistence-15m
+slb virtual-server slor.symnds.net-2 10.117.6.64
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 2
+   port 80  http
+      source-nat pool SNAT-POOL-2
+      service-group slor.symnds.net
+      template persist source-ip source-ip-persistence-15m
+slb virtual-server nobu-couchbase.symnds.net-1 10.117.6.65
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 80  http
+      source-nat pool SNAT-POOL-1
+      service-group nobu-couchbase.symnds.net
+      template persist source-ip source-ip-persistence-15m
+slb virtual-server nobu-couchbase.symnds.net-2 10.117.6.66
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 2
+   port 80  http
+      source-nat pool SNAT-POOL-2
+      service-group nobu-couchbase.symnds.net
+      template persist source-ip source-ip-persistence-15m
+slb virtual-server zone-q.acc4.symnds.net-1 10.117.6.71
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 5672  tcp
+      source-nat pool SNAT-POOL-1
+      service-group zone-q.acc4.symnds.net_5672
+      template tcp tcp-age-30
+   port 15672  http
+      source-nat pool SNAT-POOL-1
+      service-group zone-q.acc4.symnds.net_15672
+   port 55672  tcp
+      source-nat pool SNAT-POOL-1
+      service-group zone-q.acc4.symnds.net_55672
+      template tcp tcp-age-30
+slb virtual-server zone-q.acc4.symnds.net-2 10.117.6.72
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 2
+   port 5672  tcp
+      source-nat pool SNAT-POOL-2
+      service-group zone-q.acc4.symnds.net_5672
+      template tcp tcp-age-30
+   port 15672  http
+      source-nat pool SNAT-POOL-2
+      service-group zone-q.acc4.symnds.net_15672
+   port 55672  tcp
+      source-nat pool SNAT-POOL-2
+      service-group zone-q.acc4.symnds.net_55672
+      template tcp tcp-age-30
+slb virtual-server zpi.acc4.symnds.net-1 10.117.6.73
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 80  http
+      source-nat pool SNAT-POOL-1
+      service-group zpi.acc4.symnds.net_mss
+      template http zpi.acc4.symnds.net
+slb virtual-server zpi.acc4.symnds.net-2 10.117.6.74
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 2
+   port 80  http
+      source-nat pool SNAT-POOL-2
+      service-group zpi.acc4.symnds.net_mss
+      template http zpi.acc4.symnds.net
+slb virtual-server bump.acc4.symnds.net-1 10.117.6.75
+   disable
+   redistribution-flagged
+   vrid 1
+   port 8888  http
+      source-nat pool SNAT-POOL-1
+      service-group bump.acc4.symnds.net
+slb virtual-server bump.acc4.symnds.net-2 10.117.6.76
+   disable
+   redistribution-flagged
+   vrid 2
+   port 8888  http
+      source-nat pool SNAT-POOL-2
+      service-group bump.acc4.symnds.net
+slb virtual-server zone-rak.acc4.symnds.net-1 10.117.6.77
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 8087  tcp
+      source-nat pool SNAT-POOL-1
+      service-group zone-rak.acc4.symnds.net
+   port 80  http
+      source-nat pool SNAT-POOL-1
+      service-group zone-rak.acc4.symnds.net_8098
+slb virtual-server zone-rak.acc4.symnds.net-2 10.117.6.78
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 2
+   port 8087  tcp
+      source-nat pool SNAT-POOL-2
+      service-group zone-rak.acc4.symnds.net
+   port 80  http
+      service-group zone-rak.acc4.symnds.net_8098
+slb virtual-server zone-cbs.symnds.net-2 10.117.6.80
+   redistribution-flagged
+   vrid 2
+   port 80  http
+      source-nat pool SNAT-POOL-2
+      service-group zone-couchbase.symnds.net
+      template persist source-ip source-ip-persistence-15m
+slb virtual-server wm-ctl.acc4.symnds.net 10.117.6.90
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 3301  http
+      source-nat pool SNAT-POOL-1
+      service-group wm-ctl.acc4.symnds.net_3301
+   port 8801  http
+      source-nat pool SNAT-POOL-1
+      service-group wm-ctl.acc4.symnds.net_8801
+   port 80  http
+      source-nat pool SNAT-POOL-1
+      service-group wm-ctl.acc4.symnds.net_80
+slb virtual-server rrr-sod.symnds.net 10.117.6.35
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 80  http
+      source-nat pool SNAT-POOL-1
+      service-group rrr-sod.symnds.net
+slb virtual-server msq-acc4-prod.symnds.net 10.117.6.95
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 5672  tcp
+      source-nat pool SNAT-POOL-1
+      service-group msq-acc4-prod.symnds.net
+slb virtual-server nos.acc4.symnds.net-1 10.117.6.101
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 80  http
+      source-nat pool SNAT-POOL-1
+      service-group nos.acc4.symnds.net
+      template http xff-header
+slb virtual-server nos.acc4.symnds.net-2 10.117.6.102
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 2
+   port 80  http
+      source-nat pool SNAT-POOL-2
+      service-group nos.acc4.symnds.net
+      template http xff-header
+slb virtual-server sapi.norton.com-1 10.117.6.111
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 80  http
+      source-nat pool SNAT-POOL-1
+      service-group sapi.norton.com-1
+slb virtual-server sapi.norton.com-2 10.117.6.112
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 2
+   port 80  http
+      source-nat pool SNAT-POOL-2
+      service-group sapi.norton.com-2
+slb virtual-server onlinefamily.acc4.symnds.net-1 10.117.6.113
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 80  http
+      source-nat pool SNAT-POOL-1
+      service-group onlinefamily.acc4.symnds.net
+      template http xff-header
+slb virtual-server onlinefamily.acc4.symnds.net-2 10.117.6.114
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 2
+   port 80  http
+      source-nat pool SNAT-POOL-2
+      service-group onlinefamily.acc4.symnds.net
+      template http xff-header
+slb virtual-server o2comm-prd.acc4.symnds.net-1 10.117.6.115
+   redistribution-flagged
+   vrid 1
+   port 80  http
+      source-nat pool SNAT-POOL-1
+      service-group o2comm-prd.acc4.symnds.net
+      template http xff-header
+slb virtual-server dashboard.symnds.net 10.117.6.167
+   redistribution-flagged
+   vrid 1
+   port 80  http
+      source-nat pool SNAT-POOL-1
+      service-group dashboard.symnds.com_80
+      template persist source-ip source-ip-persistence-30m
+   port 9200  tcp
+      source-nat pool SNAT-POOL-1
+      service-group dashboard.symnds.com_9200
+slb virtual-server o2comm-prd.acc4.symnds.net-2 10.117.6.116
+   redistribution-flagged
+   vrid 2
+   port 80  http
+      source-nat pool SNAT-POOL-2
+      service-group o2comm-prd.acc4.symnds.net
+      template http xff-header
+slb virtual-server eventlog-sd.acc4.symnds.net-1 10.117.6.117
+   redistribution-flagged
+   vrid 1
+   port 80  http
+      source-nat pool SNAT-POOL-1
+      service-group eventlog-sd.acc4.symnds.net
+      template http xff-header
+slb virtual-server eventlog-sd.acc4.symnds.net-2 10.117.6.118
+   redistribution-flagged
+   vrid 2
+   port 80  http
+      source-nat pool SNAT-POOL-2
+      service-group eventlog-sd.acc4.symnds.net
+      template http xff-header
+slb virtual-server nof-rak.acc4.symnds.net 10.117.6.119
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 8087  tcp
+      source-nat pool SNAT-POOL-1
+      service-group nof-rak.acc4.symnds.net_8087
+   port 80  http
+      source-nat pool SNAT-POOL-1
+      service-group nof-rak.acc4.symnds.net_8098
+slb virtual-server nobuadmin.acc4.symnds.net 10.117.6.30
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 2
+   port 80  http
+      service-group nobuadmin.acc4.symnds.net
+      aflex https-redirect
+   port 443  https
+      source-nat pool SNAT-POOL-2
+      service-group nobuadmin.acc4.symnds.net
+      template client-ssl symnds.net
+slb virtual-server home-cbs.acc4.symnds.net-1 10.117.6.121
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 80  http
+      source-nat pool SNAT-POOL-1
+      service-group home-cbs.acc4.symnds.net
+      template persist source-ip source-ip-persistence-15m
+slb virtual-server home-cbs.acc4.symnds.net-2 10.117.6.122
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 2
+   port 80  http
+      source-nat pool SNAT-POOL-2
+      service-group home-cbs.acc4.symnds.net
+      template persist source-ip source-ip-persistence-15m
+slb virtual-server foreman.symnds.net 10.117.6.31
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 80  http
+      service-group foreman.symnds.net
+      aflex https-redirect
+   port 443  https
+      source-nat pool SNAT-POOL-1
+      service-group foreman.symnds.net
+      template client-ssl foreman.symnds.net
+slb virtual-server logs.symnds.net 10.117.6.32
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 2
+   port 80  http
+      service-group logs.symnds.net_8000
+      aflex https-redirect
+   port 443  https
+      source-nat pool SNAT-POOL-2
+      service-group logs.symnds.net_8000
+      template http xff-header
+      template client-ssl symnds.net
+      template persist source-ip source-ip-persistence-60m
+   port 8089  tcp
+      source-nat pool SNAT-POOL-2
+      service-group logs.symnds.net_8089
+slb virtual-server mig-q.symnds.net 10.117.6.33
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 5672  tcp
+      source-nat pool SNAT-POOL-1
+      service-group mig-q.symnds.net_5672
+      template tcp tcp-age-30
+   port 15672  http
+      source-nat pool SNAT-POOL-1
+      service-group mig-q.symnds.net_15672
+   port 55672  tcp
+      source-nat pool SNAT-POOL-1
+      service-group mig-q.symnds.net_55672
+      template tcp tcp-age-30
+slb virtual-server mek.acc4.symnds.net-1 10.117.6.83
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 80  http
+      source-nat pool SNAT-POOL-1
+      service-group zpi.acc4.symnds.net_mek
+      template http xff-header
+slb virtual-server mek.acc4.symnds.net-2 10.117.6.84
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 2
+   port 80  http
+      source-nat pool SNAT-POOL-2
+      service-group zpi.acc4.symnds.net_mek
+      template http xff-header
+slb virtual-server mek-q.acc4.symnds.net-1 10.117.6.85
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 5672  tcp
+      source-nat pool SNAT-POOL-1
+      service-group mek-q.acc4.symnds.net_5672
+   port 15672  http
+      source-nat pool SNAT-POOL-1
+      service-group mek-q.acc4.symnds.net_15672
+   port 55672  tcp
+      source-nat pool SNAT-POOL-1
+      service-group mek-q.acc4.symnds.net_55672
+slb virtual-server mek-q.acc4.symnds.net-2 10.117.6.86
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 2
+   port 5672  tcp
+      source-nat pool SNAT-POOL-2
+      service-group mek-q.acc4.symnds.net_5672
+      template tcp tcp-age-30
+   port 15672  http
+      source-nat pool SNAT-POOL-2
+      service-group mek-q.acc4.symnds.net_15672
+   port 55672  tcp
+      source-nat pool SNAT-POOL-2
+      service-group mek-q.acc4.symnds.net_55672
+      template tcp tcp-age-30
+slb virtual-server qc-sl.acc4.symnds.net 10.117.6.87
+   vrid 1
+   port 80  http
+      source-nat pool SNAT-POOL-1
+      service-group qc-sl.acc4.symnds.net
+      template http xff-header
+slb virtual-server ds-sl1.acc4.symnds.net 10.117.6.88
+   vrid 1
+   port 80  http
+      source-nat pool SNAT-POOL-1
+      service-group ds-sl1.acc4.symnds.net
+      template http xff-header
+slb virtual-server duk-sl1.acc4.symnds.net 10.117.6.89
+   vrid 1
+   port 80  http
+      source-nat pool SNAT-POOL-1
+      service-group duk-sl1.acc4.symnds.net
+      template http xff-header
+slb virtual-server graph.symnds.net 10.117.6.168
+   redistribution-flagged
+   vrid 1
+   port 80  http
+      source-nat pool SNAT-POOL-1
+      service-group graph.symnds.net_80
+   port 2003  tcp
+      source-nat pool SNAT-POOL-1
+      service-group graph.symnds.net_2003
+   port 2004  tcp
+      source-nat pool SNAT-POOL-1
+      service-group graph.symnds.net_2004
+slb virtual-server telemetry.norton.com 10.117.6.91
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 80  http
+      source-nat pool SNAT-POOL-1
+      service-group telemetry.norton.com
+slb virtual-server ds-wm.acc4.symnds.net 10.117.6.92
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 80  http
+      source-nat pool SNAT-POOL-1
+      service-group ds-wm.acc4.symnds.net_80
+   port 3301  tcp
+      source-nat pool SNAT-POOL-1
+      service-group ds-wm.acc4.symnds.net_3301
+   port 8801  tcp
+      source-nat pool SNAT-POOL-1
+      service-group ds-wm.acc4.symnds.net_8801
+slb virtual-server duk-wm.acc4.symnds.net 10.117.6.93
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 80  http
+      source-nat pool SNAT-POOL-1
+      service-group dsuk-wm.acc4.symnds.net_80
+   port 3301  tcp
+      source-nat pool SNAT-POOL-1
+      service-group dsuk-wm.acc4.symnds.net_3301
+   port 8801  tcp
+      source-nat pool SNAT-POOL-1
+      service-group dukp-wm.acc4.symnds.net_8801
+slb virtual-server sl-dell-mig.acc4.symnds.net 10.117.6.69
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 2
+   port 80  http
+      source-nat pool SNAT-POOL-2
+      service-group sl-dell-mig.acc4.symnds.net
+slb virtual-server msq-acc4-mgt.symnds.net 10.117.6.94
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 80  http
+      source-nat pool SNAT-POOL-1
+      service-group msq-acc4-mgt.symnds.net
+slb virtual-server nof-o2-rak.acc4.symnds.net 10.117.6.120
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 8087  tcp
+      source-nat pool SNAT-POOL-1
+      service-group nof-o2-rak.acc4.symnds.net_8087
+   port 80  http
+      source-nat pool SNAT-POOL-1
+      service-group nof-o2-rak.acc4.symnds.net_8098
+slb virtual-server zabbix-db.acc4.symnds.net 10.117.6.123
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 3306  tcp
+      source-nat pool SNAT-POOL-1
+      service-group zabbix-db.acc4.symnds.net
+slb virtual-server kerberos.symnds.net 10.117.6.124
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 2
+   port 88  tcp
+      source-nat pool SNAT-POOL-2
+      service-group kerberos.symnds.net
+slb virtual-server zabbix-proxy.acc4.symnds.net 10.117.6.125
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 10051  tcp
+      source-nat pool SNAT-POOL-1
+      service-group zabbix-proxy.acc4.symnds.net
+slb virtual-server hipchat.symnds.net 10.117.6.126
+   disable when-all-ports-down
+   redistribution-flagged
+   vrid 1
+   port 80  http
+      source-nat pool SNAT-POOL-1
+      service-group hipchat.symnds.net_80
+      aflex https-redirect
+   port 5222  tcp
+      source-nat pool SNAT-POOL-1
+      service-group hipchat.symnds.net_5222
+   port 5223  tcp
+      source-nat pool SNAT-POOL-1
+      service-group hipchat.symnds.net_5223
+   port 443  tcp
+      source-nat pool SNAT-POOL-1
+      service-group hipchat.symnds.net_443
