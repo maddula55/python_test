@@ -1,0 +1,5 @@
+---
+- name: test config
+  hosts: localhost
+  roles:
+   - router

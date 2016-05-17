@@ -1,0 +1,24 @@
+- {ifDescr_fa4: FastEthernet4, ifInOctets_fa4: '135451400', ifInUcastPkts_fa4: '1130065',
+  ifOutOctets_fa4: '250278818', ifOutUcastPkts_fa4: '1230018'}
+- {ifDescr_fa4: FastEthernet4, ifInOctets_fa4: '135459779', ifInUcastPkts_fa4: '1130098',
+  ifOutOctets_fa4: '250289995', ifOutUcastPkts_fa4: '1230050'}
+- {ifDescr_fa4: FastEthernet4, ifInOctets_fa4: '135469178', ifInUcastPkts_fa4: '1130140',
+  ifOutOctets_fa4: '250301585', ifOutUcastPkts_fa4: '1230091'}
+- {ifDescr_fa4: FastEthernet4, ifInOctets_fa4: '135478637', ifInUcastPkts_fa4: '1130179',
+  ifOutOctets_fa4: '250313302', ifOutUcastPkts_fa4: '1230129'}
+- {ifDescr_fa4: FastEthernet4, ifInOctets_fa4: '135486806', ifInUcastPkts_fa4: '1130214',
+  ifOutOctets_fa4: '250324352', ifOutUcastPkts_fa4: '1230164'}
+- {ifDescr_fa4: FastEthernet4, ifInOctets_fa4: '135496235', ifInUcastPkts_fa4: '1130252',
+  ifOutOctets_fa4: '250335979', ifOutUcastPkts_fa4: '1230201'}
+- {ifDescr_fa4: FastEthernet4, ifInOctets_fa4: '135505274', ifInUcastPkts_fa4: '1130286',
+  ifOutOctets_fa4: '250347679', ifOutUcastPkts_fa4: '1230239'}
+- {ifDescr_fa4: FastEthernet4, ifInOctets_fa4: '135513683', ifInUcastPkts_fa4: '1130323',
+  ifOutOctets_fa4: '250359209', ifOutUcastPkts_fa4: '1230288'}
+- {ifDescr_fa4: FastEthernet4, ifInOctets_fa4: '135523425', ifInUcastPkts_fa4: '1130363',
+  ifOutOctets_fa4: '250371059', ifOutUcastPkts_fa4: '1230315'}
+- {ifDescr_fa4: FastEthernet4, ifInOctets_fa4: '135532704', ifInUcastPkts_fa4: '1130400',
+  ifOutOctets_fa4: '250382596', ifOutUcastPkts_fa4: '1230351'}
+- {ifDescr_fa4: FastEthernet4, ifInOctets_fa4: '135546355', ifInUcastPkts_fa4: '1130506',
+  ifOutOctets_fa4: '250400298', ifOutUcastPkts_fa4: '1230459'}
+- {ifDescr_fa4: FastEthernet4, ifInOctets_fa4: '135561243', ifInUcastPkts_fa4: '1130639',
+  ifOutOctets_fa4: '250421657', ifOutUcastPkts_fa4: '1230590'}

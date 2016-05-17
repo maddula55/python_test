@@ -1,0 +1,6 @@
+---
+- name: Generate configuration files
+  template: src=router.j2 dest=/home/gmaddula/python_test/ansible/config_placeholder/{{item.hostname}}.txt
+  with_items: 
+  - { hostname: twb-sf-rtr1 }
+  - { hostname: twb-sf-rtr2 }
